@@ -1,4 +1,4 @@
-name: Build and push Pepic docker image
+name: Build Pepic
 
 on:
   workflow_dispatch:

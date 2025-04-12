@@ -1,0 +1,38 @@
+name: Build Club
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_version:
+        description: 'Tag version for the image'
+        required: true
+        default: 'latest'
+
+jobs:
+  offline-club-build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Clone private repository with specific tag
+        run: |
+          git clone https://${{ secrets.PAT_TOKEN }}@github.com/mkoziy/offline.club.git private-repo
+          cd private-repo
+          git checkout tags/${{ github.event.inputs.tag_version }} -b build-branch || echo "Tag not found, using default branch"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/offline.club:${{ github.event.inputs.tag_version }} ./private-repo
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/offline.club:${{ github.event.inputs.tag_version }}
