@@ -1,0 +1,32 @@
+name: Build and push Pepic docker image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pepic-build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Clone external repository
+        run: |
+          git clone https://github.com/vas3k/pepic.git external-repo
+          cd external-repo
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/pepic:latest ./external-repo
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/pepic:latest
