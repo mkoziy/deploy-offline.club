@@ -22,6 +22,7 @@ jobs:
 
       - name: Create inventory file
         run: |
+          mkdir -p inventory/${{ github.event.inputs.environment }}
           cat > inventory/${{ github.event.inputs.environment }}/hosts << EOF
           [production]
           prod ansible_host=${{ secrets.PRODUCTION_SSH_HOST }} ansible_user=root
