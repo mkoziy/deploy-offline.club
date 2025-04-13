@@ -1,0 +1,41 @@
+name: Setup server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Create inventory file
+        run: |
+          cat > inventory/${{ github.event.inputs.environment }}/hosts << EOF
+          [production]
+          prod ansible_host=${{ secrets.PRODUCTION_SSH_HOST }} ansible_user=root
+          EOF
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.PRODUCTION_SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Run Ansible playbook
+        run: |
+          ansible-playbook -i inventory/${{ github.event.inputs.environment }}/hosts ansible/provision.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
