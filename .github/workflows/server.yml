@@ -38,7 +38,10 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
           ssh-keyscan -t rsa ${{ secrets.PRODUCTION_SSH_HOST }} >> ~/.ssh/known_hosts
+          cat ~/.ssh/id_rsa
 
       - name: Run Ansible playbook
         run: |
