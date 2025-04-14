@@ -32,7 +32,7 @@ jobs:
           mkdir -p inventory/${{ github.event.inputs.environment }}
           cat > inventory/${{ github.event.inputs.environment }}/hosts << EOF
           [production]
-          prod ansible_host=91.99.3.246 ansible_user=root
+          prod ansible_host=${{ secrets.PRODUCTION_SSH_HOST }} ansible_user=root
           EOF
 
       - name: Set up SSH key
@@ -42,10 +42,6 @@ jobs:
 
       - name: Debug SSH connection
         run: ssh -i ${{ env.SSH_KEY_PATH }} -o StrictHostKeyChecking=no -v root@${{ secrets.PRODUCTION_SSH_HOST }} 'echo "Connection successful"'
-        continue-on-error: true
-
-      - name: Debug inventory file
-        run: cat ./inventory/${{ github.event.inputs.environment }}/hosts
         continue-on-error: true
 
       - name: Run Ansible playbook
