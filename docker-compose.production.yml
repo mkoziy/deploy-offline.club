@@ -124,6 +124,8 @@ services:
     restart: unless-stopped
     networks:
       - club_network
+    env_file:
+      - .env
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
     volumes:
       - /home/deploy/cloudflare:/etc/cloudflared
