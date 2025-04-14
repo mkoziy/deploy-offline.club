@@ -44,6 +44,10 @@ jobs:
         run: ssh -i ${{ env.SSH_KEY_PATH }} -o StrictHostKeyChecking=no -v root@${{ secrets.PRODUCTION_SSH_HOST }} 'echo "Connection successful"'
         continue-on-error: true
 
+      - name: Debug inventory file
+        run: cat ./inventory/${{ github.event.inputs.environment }}/hosts
+        continue-on-error: true
+
       - name: Run Ansible playbook
         run: |
           ansible-playbook -i ./inventory/${{ github.event.inputs.environment }}/hosts ./ansible/setup.yml --private-key=${{ env.SSH_KEY_PATH }}
