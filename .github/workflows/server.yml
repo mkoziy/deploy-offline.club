@@ -36,7 +36,9 @@ jobs:
           EOF
 
       - name: Set up SSH key
-        run: echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ${{ env.SSH_KEY_PATH }} && chmod 600 ${{ env.SSH_KEY_PATH }}
+        run: |
+          echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ${{ env.SSH_KEY_PATH }}
+          chmod 600 ${{ env.SSH_KEY_PATH }}
 
       - name: Debug SSH connection
         run: ssh -i ${{ env.SSH_KEY_PATH }} -o StrictHostKeyChecking=no -v root@${{ secrets.PRODUCTION_SSH_HOST }} 'echo "Connection successful"'
