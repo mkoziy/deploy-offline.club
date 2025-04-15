@@ -39,6 +39,9 @@ jobs:
         run: |
           echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ${{ env.SSH_KEY_PATH }}
           chmod 600 ${{ env.SSH_KEY_PATH }}
+          # Extract public key and set as environment variable
+          PUBLIC_SSH_KEY=$(ssh-keygen -y -f ${{ env.SSH_KEY_PATH }})
+          echo "PUBLIC_SSH_KEY=$PUBLIC_SSH_KEY" >> $GITHUB_ENV
 
       - name: Run Ansible playbook
         run: |
