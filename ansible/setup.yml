@@ -29,7 +29,7 @@
     - name: Add existing SSH key to deploy user
       authorized_key:
         user: "{{ deploy_user }}"
-        key: "{{ lookup('file', lookup('env', 'SSH_KEY_PATH') | default('/tmp/ssh_key')) }}"
+        key: "{{ lookup('env', 'PUBLIC_SSH_KEY') }}"
         state: present
 
 #    - name: Set up authorized_keys for deploy user

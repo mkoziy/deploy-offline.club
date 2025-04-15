@@ -45,4 +45,4 @@ jobs:
           ansible-playbook -i ./inventory/${{ github.event.inputs.environment }}/hosts ./ansible/setup.yml --private-key=${{ env.SSH_KEY_PATH }}
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
-          SSH_KEY_PATH: ${{ env.SSH_KEY_PATH }}
+          PUBLIC_SSH_KEY: ${{ env.PUBLIC_SSH_KEY }}
