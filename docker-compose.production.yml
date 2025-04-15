@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   club_app: &app
-    image: ghcr.io/mkoziy/offline.club:${GITHUB_SHA:-latest}
+    image: ghcr.io/mkoziy/offline.club:${TAG_VERSION:-latest}
     command: make docker-run-production
     container_name: club_app
     networks:

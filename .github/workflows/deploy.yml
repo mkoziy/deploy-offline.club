@@ -51,6 +51,7 @@ jobs:
     needs: check-and-build
     env:
       SSH_KEY_PATH: /tmp/ssh_key
+      TAG_VERSION: ${{ github.event.inputs.tag_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -62,7 +63,7 @@ jobs:
           secret_APP_HOST: ${{ secrets.APP_HOST }} #+
           secret_MEDIA_UPLOAD_URL: ${{ secrets.MEDIA_UPLOAD_URL }} #+
           secret_MEDIA_UPLOAD_CODE: ${{ secrets.MEDIA_UPLOAD_CODE }} #+
-          secret_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          secret_SENTRY_DSN: ${{ secrets.SENTRY_DSN }} #+
           secret_EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           secret_EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
           secret_EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
