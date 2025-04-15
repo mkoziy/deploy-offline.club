@@ -46,9 +46,9 @@ services:
     container_name: club_postgres
     user: "1000"
     env_file:
-      - .env
+      - /home/deploy/database/.env
     volumes:
-      - /home/deploy/database:/var/lib/postgresql/data
+      - /home/deploy/database/data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
@@ -126,10 +126,10 @@ services:
     networks:
       - club_network
     env_file:
-      - .env
+      - /home/deploy/cloudflare/.env
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
     volumes:
-      - /home/deploy/cloudflare:/etc/cloudflared
+      - /home/deploy/cloudflare/cloudflared:/etc/cloudflared
 
 networks:
   club_network:
