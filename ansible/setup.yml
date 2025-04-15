@@ -26,6 +26,12 @@
         group: "{{ deploy_user }}"
         mode: '0700'
 
+    - name: Add existing SSH key to deploy user
+      authorized_key:
+        user: "{{ deploy_user }}"
+        key: "{{ lookup('file', lookup('env', 'SSH_KEY_PATH') | default('/tmp/ssh_key')) }}"
+        state: present
+
 #    - name: Set up authorized_keys for deploy user
 #      copy:
 #        content: "{{ lookup('env', 'DEPLOY_SSH_PUBLIC_KEY') }}"
