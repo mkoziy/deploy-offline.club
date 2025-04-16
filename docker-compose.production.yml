@@ -5,6 +5,7 @@ services:
     image: ghcr.io/mkoziy/offline.club:${TAG_VERSION:-latest}
     command: make docker-run-production
     container_name: club_app
+    user: "1000"
     networks:
       - club_network
     environment:
