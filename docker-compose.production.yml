@@ -17,7 +17,7 @@ services:
       - REDIS_HOST=redis
       - POSTGRES_DB
       - POSTGRES_USER
-      - POSTGRES_HOST=host.docker.internal
+      - POSTGRES_HOST=postgres
       - POSTGRES_PASSWORD
       - EMAIL_HOST
       - EMAIL_PORT
