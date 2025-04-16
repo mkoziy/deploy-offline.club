@@ -45,6 +45,8 @@ services:
     image: postgres:14
     container_name: club_postgres
     user: "1000"
+    networks:
+      - club_network
     env_file:
       - /home/deploy/database/.env
     volumes:
@@ -80,9 +82,11 @@ services:
     volumes:
       - /home/deploy/uploads:/uploads
     ports:
-      - 8118:8118
+      - "127.0.0.1:8118:8118"
     user: "1000"
     restart: unless-stopped
+    networks:
+      - club_network
     logging:
       driver: "json-file"
       options:
@@ -127,7 +131,7 @@ services:
       - club_network
     env_file:
       - /home/deploy/cloudflare/.env
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
+    command: tunnel --no-autoupdate run
     volumes:
       - /home/deploy/cloudflare/cloudflared:/etc/cloudflared
 
