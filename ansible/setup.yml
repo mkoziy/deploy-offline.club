@@ -54,6 +54,7 @@
         - "{{ project_dir }}/gdpr/downloads"
         - "{{ uploads_dir }}"
         - "{{ database_dir }}"
+        - "{{ database_dir }}/data"
         - "{{ cloudflare_dir }}"
 
 #    - name: Install Docker dependencies
