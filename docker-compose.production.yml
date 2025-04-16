@@ -29,7 +29,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./frontend/static:/tmp/static
+#      - ./frontend/static:/tmp/static
       - ./gdpr/downloads:/app/gdpr/downloads
     depends_on:
       - redis
