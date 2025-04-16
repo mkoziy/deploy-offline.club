@@ -154,6 +154,7 @@ services:
       - DOCKER_ENABLED=true
     volumes:
       - ./frontend/static:/frontend/static:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - club_app
     logging:
