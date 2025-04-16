@@ -29,7 +29,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-#      - ./frontend/static:/tmp/static
+      - ./frontend/static:/tmp/static
       - ./gdpr/downloads:/app/gdpr/downloads
     depends_on:
       - redis
@@ -135,6 +135,27 @@ services:
     command: tunnel --no-autoupdate run
     volumes:
       - /home/deploy/cloudflare/cloudflared:/etc/cloudflared
+
+  reproxy:
+    image: umputun/reproxy:latest
+    container_name: club_reproxy
+    restart: unless-stopped
+    networks:
+      - club_network
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - ASSETS_LOCATION=/frontend/static
+      - LISTEN=0.0.0.0:8080
+    volumes:
+      - ./frontend/static:/frontend/static:ro
+    depends_on:
+      - club_app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "3"
 
 networks:
   club_network:
