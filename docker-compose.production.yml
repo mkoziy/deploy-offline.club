@@ -22,6 +22,9 @@ services:
       - EMAIL_HOST
       - EMAIL_PORT
       - DEFAULT_FROM_EMAIL
+      - EMAIL_USE_TLS=True
+      - EMAIL_USE_SSL=False
+      - DEFAULT_FROM_EMAIL=noreply@xxx-111.xyz
     env_file:
       - .env
     restart: unless-stopped
