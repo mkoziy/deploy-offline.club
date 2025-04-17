@@ -85,6 +85,7 @@ services:
 
   pepic:
     image: ghcr.io/mkoziy/pepic:latest
+    container_name: club_pepic
     environment:
       - BASE_URL=https://images.xxx-111.xyz/
       - STORAGE_DIR=/uploads
@@ -99,6 +100,10 @@ services:
     restart: unless-stopped
     networks:
       - club_network
+    labels:
+      reproxy.server: "images.xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
     logging:
       driver: "json-file"
       options:
