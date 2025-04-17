@@ -57,6 +57,7 @@
         - "{{ database_dir }}"
         - "{{ database_dir }}/data"
         - "{{ cloudflare_dir }}"
+        - "{{ pepic_dir }}"
 
 #    - name: Install Docker dependencies
 #      apt:
