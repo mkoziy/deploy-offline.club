@@ -64,6 +64,7 @@ jobs:
           secret_MEDIA_UPLOAD_URL: ${{ secrets.MEDIA_UPLOAD_URL }} #+
           secret_MEDIA_UPLOAD_CODE: ${{ secrets.MEDIA_UPLOAD_CODE }} #+
           secret_SENTRY_DSN: ${{ secrets.SENTRY_DSN }} #+
+          secret_DEFAULT_FROM_EMAIL: ${{ secrets.PRODUCTION_DEFAULT_FROM_EMAIL }} #+
           secret_EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           secret_EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
           secret_EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
