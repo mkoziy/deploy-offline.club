@@ -32,10 +32,11 @@ services:
     depends_on:
       - redis
       - postgres
+      - pepic
     ports:
       - "127.0.0.1:8814:8814"
     labels:
-      reproxy.server: "*"
+      reproxy.server: "xxx-111.xyz"
       reproxy.route: "^/(.*)"
       reproxy.dest: "/$$1"
       reproxy.assets: "/static:/frontend/static"
@@ -74,9 +75,14 @@ services:
       - club_network
     ports:
       - "8816:8816"
+    labels:
+      reproxy.server: "telegram.xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
 
   pepic:
     image: ghcr.io/mkoziy/pepic:latest
+    container_name: club_pepic
     environment:
       - STORAGE_DIR=/uploads
       - IMAGE_ORIGINAL_LENGTH=1400
@@ -89,6 +95,10 @@ services:
     restart: unless-stopped
     networks:
       - club_network
+    labels:
+      reproxy.server: "images.xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
     logging:
       driver: "json-file"
       options:
