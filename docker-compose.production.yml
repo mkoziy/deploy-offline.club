@@ -11,8 +11,6 @@ services:
       - MODE=production
       - PYTHONUNBUFFERED=1
       - DEBUG=false
-      - APP_HOST=https://xxx-111.xyz
-      - MEDIA_UPLOAD_URL=https://images.xxx-111.xyz/upload/
       - REDIS_DB=0
       - REDIS_HOST=redis
       - POSTGRES_DB
@@ -24,7 +22,6 @@ services:
       - DEFAULT_FROM_EMAIL
       - EMAIL_USE_TLS=true
       - EMAIL_USE_SSL=false
-      - DEFAULT_FROM_EMAIL=noreply@xxx-111.xyz
     env_file:
       - .env
     restart: unless-stopped
@@ -87,11 +84,11 @@ services:
     image: ghcr.io/mkoziy/pepic:latest
     container_name: club_pepic
     environment:
-      - BASE_URL=https://images.xxx-111.xyz/
       - STORAGE_DIR=/uploads
-      - SECRET_CODE=wowsosecret
       - IMAGE_ORIGINAL_LENGTH=1400
       - MAX_UPLOAD_SIZE=100M
+    env_file:
+      - /home/deploy/pepic/.env
     volumes:
       - /home/deploy/uploads:/uploads
     ports:

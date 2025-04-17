@@ -9,6 +9,7 @@
     uploads_dir: "{{ deploy_home }}/uploads"
     database_dir: "{{ deploy_home }}/database"
     cloudflare_dir: "{{ deploy_home }}/cloudflare"
+    pepic_dir: "{{ deploy_home }}/pepic"
 
   tasks:
     - name: Create deploy user
