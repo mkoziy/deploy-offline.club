@@ -39,7 +39,7 @@ services:
     ports:
       - "127.0.0.1:8814:8814"
     labels:
-      reproxy.server: "*"
+      reproxy.server: "xxx-111.xyz"
       reproxy.route: "^/(.*)"
       reproxy.dest: "/$$1"
       reproxy.assets: "/static:/frontend/static"
@@ -78,6 +78,10 @@ services:
       - club_network
     ports:
       - "8816:8816"
+    labels:
+      reproxy.server: "telegram.xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
 
   pepic:
     image: ghcr.io/mkoziy/pepic:latest
@@ -152,7 +156,6 @@ services:
     ports:
       - "127.0.0.1:8080:8080"
     environment:
-#      - ASSETS_LOCATION=/frontend/static
       - LISTEN=0.0.0.0:8080
       - DOCKER_ENABLED=true
       - MAX_SIZE=1M

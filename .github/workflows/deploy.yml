@@ -6,7 +6,7 @@ on:
       tag_version:
         description: 'Tag version for the image'
         required: true
-        default: '1.0.0'
+        default: '1.1.2'
 
 jobs:
   check-and-build:
@@ -69,7 +69,8 @@ jobs:
           secret_EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
           secret_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }} #+
           secret_TELEGRAM_BOT_URL: ${{ secrets.TELEGRAM_BOT_URL }} #+
-          secret_TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+          secret_TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }} #+
+          secret_TELEGRAM_BOT_WEBHOOK_URL: ${{ secrets.TELEGRAM_BOT_WEBHOOK_URL}} #+
           secret_TELEGRAM_CLUB_CHANNEL_URL: ${{ secrets.TELEGRAM_CLUB_CHANNEL_URL }}
           secret_TELEGRAM_CLUB_CHANNEL_ID: ${{ secrets.TELEGRAM_CLUB_CHANNEL_ID }}
           secret_TELEGRAM_CLUB_CHAT_URL: ${{ secrets.TELEGRAM_CLUB_CHAT_URL }}
