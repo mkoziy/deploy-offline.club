@@ -19,7 +19,6 @@ services:
       - POSTGRES_PASSWORD
       - EMAIL_HOST
       - EMAIL_PORT
-      - DEFAULT_FROM_EMAIL
       - EMAIL_USE_TLS=true
       - EMAIL_USE_SSL=false
     env_file:
@@ -36,7 +35,7 @@ services:
     ports:
       - "127.0.0.1:8814:8814"
     labels:
-      reproxy.server: "xxx-111.xyz"
+      reproxy.server: "*"
       reproxy.route: "^/(.*)"
       reproxy.dest: "/$$1"
       reproxy.assets: "/static:/frontend/static"
@@ -75,20 +74,13 @@ services:
       - club_network
     ports:
       - "8816:8816"
-    labels:
-      reproxy.server: "telegram.xxx-111.xyz"
-      reproxy.route: "^/(.*)"
-      reproxy.dest: "/$$1"
 
   pepic:
     image: ghcr.io/mkoziy/pepic:latest
-    container_name: club_pepic
     environment:
       - STORAGE_DIR=/uploads
       - IMAGE_ORIGINAL_LENGTH=1400
       - MAX_UPLOAD_SIZE=100M
-    env_file:
-      - /home/deploy/pepic/.env
     volumes:
       - /home/deploy/uploads:/uploads
     ports:
@@ -97,10 +89,6 @@ services:
     restart: unless-stopped
     networks:
       - club_network
-    labels:
-      reproxy.server: "images.xxx-111.xyz"
-      reproxy.route: "^/(.*)"
-      reproxy.dest: "/$$1"
     logging:
       driver: "json-file"
       options:
@@ -160,8 +148,6 @@ services:
     environment:
       - LISTEN=0.0.0.0:8080
       - DOCKER_ENABLED=true
-      - MAX_SIZE=1M
-      - DEBUG=true
     volumes:
       - ./frontend/static:/frontend/static:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
