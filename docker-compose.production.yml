@@ -158,6 +158,8 @@ services:
     environment:
       - LISTEN=0.0.0.0:8080
       - DOCKER_ENABLED=true
+      - MAX_SIZE=30M
+      - DEBUG=true
     volumes:
       - ./frontend/static:/frontend/static:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
