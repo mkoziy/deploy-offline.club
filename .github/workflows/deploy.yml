@@ -61,8 +61,8 @@ jobs:
         env:
           secret_SECRET_KEY: ${{ secrets.SECRET_KEY }} #+
           secret_APP_HOST: ${{ secrets.APP_HOST }} #+
-          secret_MEDIA_UPLOAD_URL: ${{ secrets.MEDIA_UPLOAD_URL }} #+
-          secret_MEDIA_UPLOAD_CODE: ${{ secrets.MEDIA_UPLOAD_CODE }} #+
+          secret_MEDIA_UPLOAD_URL: ${{ secrets.PRODUCTION_MEDIA_UPLOAD_URL }} #+
+          secret_MEDIA_UPLOAD_CODE: ${{ secrets.PRODUCTION_MEDIA_UPLOAD_CODE }} #+
           secret_SENTRY_DSN: ${{ secrets.SENTRY_DSN }} #+
           secret_DEFAULT_FROM_EMAIL: ${{ secrets.PRODUCTION_DEFAULT_FROM_EMAIL }} #+
           secret_EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
