@@ -163,6 +163,7 @@ services:
       - FILE_NAME=/data/reproxy.yml
       - MAX_SIZE=30M
       - DEBUG=true
+      - KEEP_HOST=true
     volumes:
       - ./frontend/static:/frontend/static:ro
       - ./club_app_reproxy.yml:/data/reproxy.yml
@@ -188,6 +189,7 @@ services:
       - FILE_NAME=/data/reproxy.yml
       - MAX_SIZE=30M
       - DEBUG=true
+      - KEEP_HOST=true
     volumes:
       - ./frontend/static:/frontend/static:ro
       - ./pepic_reproxy.yml:/data/reproxy.yml
