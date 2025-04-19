@@ -119,6 +119,10 @@ jobs:
 
       - run: scp -o StrictHostKeyChecking=no -i ${{ env.SSH_KEY_PATH }} .env ${{ secrets.PRODUCTION_SSH_USERNAME }}@${{ secrets.PRODUCTION_SSH_HOST }}:/home/deploy/club/.env
 
+      - run: scp -o StrictHostKeyChecking=no -i ${{ env.SSH_KEY_PATH }} club_app_reproxy.yml ${{ secrets.PRODUCTION_SSH_USERNAME }}@${{ secrets.PRODUCTION_SSH_HOST }}:/home/deploy/club/club_app_reproxy.yml
+
+      - run: scp -o StrictHostKeyChecking=no -i ${{ env.SSH_KEY_PATH }} pepic_reproxy.yml ${{ secrets.PRODUCTION_SSH_USERNAME }}@${{ secrets.PRODUCTION_SSH_HOST }}:/home/deploy/club/pepic_reproxy.yml
+
       - run: scp -o StrictHostKeyChecking=no -i ${{ env.SSH_KEY_PATH }} .postgres_env ${{ secrets.PRODUCTION_SSH_USERNAME }}@${{ secrets.PRODUCTION_SSH_HOST }}:/home/deploy/database/.env
 
       - run: scp -o StrictHostKeyChecking=no -i ${{ env.SSH_KEY_PATH }} .cloudflare_env ${{ secrets.PRODUCTION_SSH_USERNAME }}@${{ secrets.PRODUCTION_SSH_HOST }}:/home/deploy/cloudflare/.env

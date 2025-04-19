@@ -35,11 +35,11 @@ services:
       - pepic
     ports:
       - "127.0.0.1:8814:8814"
-    labels:
-      reproxy.server: "xxx-111.xyz"
-      reproxy.route: "^/(.*)"
-      reproxy.dest: "/$$1"
-      reproxy.assets: "/static:/frontend/static"
+#    labels:
+#      reproxy.server: "xxx-111.xyz"
+#      reproxy.route: "^/(.*)"
+#      reproxy.dest: "/$$1"
+#      reproxy.assets: "/static:/frontend/static"
     logging:
       driver: "json-file"
       options:
@@ -97,10 +97,10 @@ services:
     restart: unless-stopped
     networks:
       - club_network
-    labels:
-      reproxy.server: "images.xxx-111.xyz"
-      reproxy.route: "^/(.*)"
-      reproxy.dest: "/$$1"
+#    labels:
+#      reproxy.server: "images.xxx-111.xyz"
+#      reproxy.route: "^/(.*)"
+#      reproxy.dest: "/$$1"
     logging:
       driver: "json-file"
       options:
@@ -149,9 +149,9 @@ services:
     volumes:
       - /home/deploy/cloudflare/cloudflared:/etc/cloudflared
 
-  reproxy:
+  club_app_reproxy:
     image: umputun/reproxy:latest
-    container_name: club_reproxy
+    container_name: club_app_reproxy
     restart: unless-stopped
     networks:
       - club_network
@@ -159,14 +159,40 @@ services:
       - "127.0.0.1:8080:8080"
     environment:
       - LISTEN=0.0.0.0:8080
-      - DOCKER_ENABLED=true
+      - FILE_ENABLED=true
+      - FILE_NAME=/data/reproxy.yml
       - MAX_SIZE=30M
       - DEBUG=true
     volumes:
       - ./frontend/static:/frontend/static:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./club_app_reproxy.yml:/data/reproxy.yml
     depends_on:
       - club_app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "3"
+
+  pepic_reproxy:
+    image: umputun/reproxy:latest
+    container_name: pepic_reproxy
+    restart: unless-stopped
+    networks:
+      - club_network
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      - LISTEN=0.0.0.0:8081
+      - FILE_ENABLED=true
+      - FILE_NAME=/data/reproxy.yml
+      - MAX_SIZE=30M
+      - DEBUG=true
+    volumes:
+      - ./frontend/static:/frontend/static:ro
+      - ./pepic_reproxy.yml:/data/reproxy.yml
+    depends_on:
+      - pepic
     logging:
       driver: "json-file"
       options:
