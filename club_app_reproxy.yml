@@ -1,6 +1,10 @@
 xxx-111.xyz:
   - {
     route: "^/(.*)",
-    dest: "http://club_app:8814/$1",
-    assets: "/static:/frontend/static"
+    dest: "http://club_app:8814/$1"
+  }
+  - {
+    route: "^/static/",
+    dest: "/frontend/static",
+    assets: true
   }
