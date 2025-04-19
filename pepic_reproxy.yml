@@ -1,5 +1,0 @@
-images.xxx-111.xyz:
-  - {
-    route: "^/(.*)",
-    dest: "http://pepic:8118/$1"
-  }

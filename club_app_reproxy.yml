@@ -1,5 +1,0 @@
-xxx-111.xyz:
-  - {
-    route: "^/(.*)",
-    dest: "http://club_app:8814/$1"
-  }
