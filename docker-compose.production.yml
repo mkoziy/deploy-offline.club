@@ -35,11 +35,11 @@ services:
       - pepic
     ports:
       - "127.0.0.1:8814:8814"
-#    labels:
-#      reproxy.server: "xxx-111.xyz"
-#      reproxy.route: "^/(.*)"
-#      reproxy.dest: "/$$1"
-#      reproxy.assets: "/static:/frontend/static"
+    labels:
+      reproxy.server: "xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
+      reproxy.assets: "/static:/frontend/static"
     logging:
       driver: "json-file"
       options:
@@ -97,10 +97,10 @@ services:
     restart: unless-stopped
     networks:
       - club_network
-#    labels:
-#      reproxy.server: "images.xxx-111.xyz"
-#      reproxy.route: "^/(.*)"
-#      reproxy.dest: "/$$1"
+    labels:
+      reproxy.server: "images.xxx-111.xyz"
+      reproxy.route: "^/(.*)"
+      reproxy.dest: "/$$1"
     logging:
       driver: "json-file"
       options:
@@ -159,14 +159,13 @@ services:
       - "127.0.0.1:8080:8080"
     environment:
       - LISTEN=0.0.0.0:8080
-      - FILE_ENABLED=true
-      - FILE_NAME=/data/reproxy.yml
+      - DOCKER_ENABLED=true
       - MAX_SIZE=30M
       - DEBUG=true
       - KEEP_HOST=true
     volumes:
       - ./frontend/static:/frontend/static:ro
-      - ./club_app_reproxy.yml:/data/reproxy.yml
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - club_app
     logging:
@@ -185,14 +184,12 @@ services:
       - "127.0.0.1:8081:8080"
     environment:
       - LISTEN=0.0.0.0:8081
-      - FILE_ENABLED=true
-      - FILE_NAME=/data/reproxy.yml
+      - DOCKER_ENABLED=true
       - MAX_SIZE=30M
       - DEBUG=true
       - KEEP_HOST=true
     volumes:
-      - ./frontend/static:/frontend/static:ro
-      - ./pepic_reproxy.yml:/data/reproxy.yml
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - pepic
     logging:
